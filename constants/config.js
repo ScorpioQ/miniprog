@@ -39,5 +39,11 @@ export const TABLE_CONFIG = {
   CAPACITY_TEXT_COLOR: '#333333',  // 容量显示的文字颜色
   
   // 动画配置
-  TRANSITION_DURATION: '0.3s'  // 过渡动画持续时间
+  TRANSITION_DURATION: '0.3s',  // 过渡动画持续时间
+  
+  // 删除按钮距离的配置参数
+  DELETE_BUTTON_DISTANCE_RATIO: 1.5, // 删除按钮距离是座位距离的倍数
+  DEFAULT_CAPACITY: 10,
+  MIN_CAPACITY: 4,
+  MAX_CAPACITY: 12,
 };

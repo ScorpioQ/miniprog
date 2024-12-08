@@ -1,3 +1,10 @@
+.table-layout-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
 .table-layout {
   width: 100%;
   height: calc(100vh - 100rpx);
@@ -6,17 +13,18 @@
   overflow: hidden;
 }
 
-.movable-content {
-  width: 2000px;
-  height: 2000px;
-  overflow: visible;
+.touch-container {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
 }
 
 .content {
-  position: relative;
-  transform-origin: 0 0;
+  position: absolute;
   width: 100%;
   height: 100%;
+  transform-origin: 0 0;
+  will-change: transform;
 }
 
 .add-table-btn {
@@ -38,12 +46,11 @@
 
 .table-container {
   position: absolute;
-  width: var(--table-size);
-  height: var(--table-size);
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  transform-origin: center center;
+  z-index: 1;  /* 确保在正确的层级 */
 }
 
 .table {
@@ -57,24 +64,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-duration);
 }
 
 .table-capacity {
-  font-size: var(--capacity-font-size);
-  color: var(--capacity-text-color);
+  font-size: 28rpx;  /* 使用固定大小 */
+  color: #333333;
   text-align: center;
+  min-width: 40rpx;
+  z-index: 2;
+  background: transparent;
+  pointer-events: none;  /* 防止输入框影响拖动 */
+}
+
+.seats {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.seat,
+.delete-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: auto;
 }
 
 .seat {
-  position: absolute;
   width: var(--seat-size);
   height: var(--seat-size);
-  transform-origin: center center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition-duration);
+  margin-left: calc(-1 * var(--seat-size) / 2);
+  margin-top: calc(-1 * var(--seat-size) / 2);
 }
 
 .seat-content {
@@ -98,6 +120,27 @@
 .seat.occupied .seat-content {
   background: var(--seat-occupied-background);
   color: var(--seat-occupied-text-color);
+}
+
+.delete-button {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #ff4d4f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24rpx;
+  font-weight: bold;
+  z-index: 100;
+  margin-left: -20rpx;
+  margin-top: -20rpx;
+}
+
+.delete-button::before {
+  content: "×";
+  line-height: 1;
 }
 
 .modal {

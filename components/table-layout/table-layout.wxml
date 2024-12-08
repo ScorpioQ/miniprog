@@ -1,18 +1,11 @@
 <view class="table-layout" style="{{styleVariables}}">
-  <movable-area class="table-layout" id="tableLayout">
-    <movable-view 
-      class="movable-content"
-      direction="all"
-      scale="true"
-      scale-min="{{ZOOM_CONFIG.MIN_SCALE}}"
-      scale-max="{{ZOOM_CONFIG.MAX_SCALE}}"
-      scale-value="{{scale}}"
-      bindscale="onScale"
-      bindchange="onChange"
-      out-of-bounds="true"
-      damping="50"
-      friction="2">
-      <view class="content" style="width: {{contentWidth}}px; height: {{contentHeight}}px; transform: scale({{scale}});">
+  <view class="table-layout-container">
+    <view 
+      class="touch-container"
+      bindtouchstart="onTouchStart"
+      bindtouchmove="onTouchMove"
+      bindtouchend="onTouchEnd">
+      <view class="content" style="transform: translate({{currentX}}px, {{currentY}}px) scale({{currentScale}});">
         <!-- 添加按钮 -->
         <view class="add-table-btn" bind:tap="showAddTable" wx:if="{{showAddButton}}">
           <text>+</text>
@@ -32,23 +25,35 @@
                    disabled="{{item.seats.length > 0}}" />
             
             <!-- 座位 -->
-            <view wx:for="{{item.seats}}" 
-                  wx:key="index" 
-                  wx:for-item="seat"
-                  class="seat {{seat.guestId ? 'occupied' : ''}}"
-                  style="transform: rotate({{360 / item.capacity * index}}deg) translateY(calc(-1 * var(--seat-margin)));"
-                  bind:tap="onSeatTap"
-                  data-table-id="{{item.id}}"
-                  data-seat-index="{{index}}">
-              <view class="seat-content" style="transform: rotate(-{{360 / item.capacity * index}}deg)">
-                {{seat.guestName || ''}}
+            <view class="seats">
+              <view wx:for="{{item.seats}}" 
+                    wx:key="index" 
+                    wx:for-item="seat"
+                    class="seat {{seat.guestId ? 'occupied' : ''}}"
+                    style="transform: translate({{seatPositions[item.capacity][index].seat.x}}rpx, {{seatPositions[item.capacity][index].seat.y}}rpx) rotate({{seatPositions[item.capacity][index].seat.angle}}deg);"
+                    bind:tap="onSeatTap"
+                    data-table-id="{{item.id}}"
+                    data-seat-index="{{index}}">
+                <view class="seat-content" style="transform: rotate(-{{seatPositions[item.capacity][index].seat.angle}}deg)">
+                  {{seat.guestName || ''}}
+                </view>
+              </view>
+              <view wx:for="{{item.seats}}" 
+                    wx:key="index"
+                    wx:for-item="seat"
+                    wx:if="{{seat.guestId}}"
+                    class="delete-button"
+                    style="transform: translate({{seatPositions[item.capacity][index].button.x}}rpx, {{seatPositions[item.capacity][index].button.y}}rpx) rotate({{seatPositions[item.capacity][index].button.angle}}deg);"
+                    data-table-id="{{item.id}}"
+                    data-seat-index="{{index}}"
+                    catch:tap="onDeleteGuest">
               </view>
             </view>
           </view>
         </view>
       </view>
-    </movable-view>
-  </movable-area>
+    </view>
+  </view>
 
   <!-- 添加餐桌弹窗 -->
   <view class="modal" wx:if="{{showModal}}">
