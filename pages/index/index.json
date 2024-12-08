@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar/navigation-bar",
+    "guest-list": "/components/guest-list/guest-list",
+    "table-layout": "/components/table-layout/table-layout",
+    "toolbar": "/components/toolbar/toolbar"
+  }
+}

@@ -1,0 +1,215 @@
+.table-layout {
+  width: 100%;
+  height: calc(100vh - 100rpx);
+  background: #F5F5F5;
+  position: relative;
+  overflow: hidden;
+}
+
+.movable-content {
+  width: 2000px;
+  height: 2000px;
+  overflow: visible;
+}
+
+.content {
+  position: relative;
+  transform-origin: 0 0;
+  width: 100%;
+  height: 100%;
+}
+
+.add-table-btn {
+  position: fixed;
+  top: 20rpx;
+  right: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+  background: #007AFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 40rpx;
+  z-index: 100;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.table-container {
+  position: absolute;
+  width: var(--table-size);
+  height: var(--table-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+}
+
+.table {
+  width: var(--table-size);
+  height: var(--table-size);
+  background: var(--table-background);
+  border: 2rpx solid var(--table-border);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: var(--table-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-duration);
+}
+
+.table-capacity {
+  font-size: var(--capacity-font-size);
+  color: var(--capacity-text-color);
+  text-align: center;
+}
+
+.seat {
+  position: absolute;
+  width: var(--seat-size);
+  height: var(--seat-size);
+  transform-origin: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-duration);
+}
+
+.seat-content {
+  width: 100%;
+  height: 100%;
+  background: var(--seat-background);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--seat-size) * 0.4);
+  color: var(--seat-text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 4rpx;
+  box-sizing: border-box;
+  transition: all var(--transition-duration);
+}
+
+.seat.occupied .seat-content {
+  background: var(--seat-occupied-background);
+  color: var(--seat-occupied-text-color);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 600rpx;
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.number-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+
+.number-input .label {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.number-control {
+  display: flex;
+  align-items: center;
+  border: 2rpx solid #E0E0E0;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.number-btn {
+  width: 80rpx;
+  height: 80rpx;
+  background: #F5F5F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  color: #333;
+}
+
+.number-value {
+  width: 100rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #333;
+  border-left: 2rpx solid #E0E0E0;
+  border-right: 2rpx solid #E0E0E0;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-button {
+  width: 45%;
+  height: 80rpx;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+}
+
+.modal-button.cancel {
+  background: #F5F5F5;
+  color: #333;
+}
+
+.modal-button.confirm {
+  background: #007AFF;
+  color: white;
+}
+
+page {
+  /* 从配置文件中导入的变量 */
+  --table-size: 160rpx;
+  --table-background: #FFFFFF;
+  --table-border: #E0E0E0;
+  --table-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  
+  --seat-size: 50rpx;
+  --seat-margin: 40rpx;
+  --seat-background: #E0E0E0;
+  --seat-occupied-background: #007AFF;
+  --seat-text-color: #333333;
+  --seat-occupied-text-color: #FFFFFF;
+  
+  --capacity-font-size: 24rpx;
+  --capacity-text-color: #333333;
+  
+  --transition-duration: 0.3s;
+}

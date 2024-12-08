@@ -1,0 +1,26 @@
+<!--index.wxml-->
+<navigation-bar title="婚宴座位安排" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+<view class="page-container">
+  <toolbar bindaddGuest="showAddGuest" bindaddTable="showAddTable" />
+  <view class="content-container">
+    <guest-list 
+      id="guestList"
+      guests="{{guests}}" 
+      selectedGuest="{{selectedGuest}}"
+      bind:addGuest="onAddGuest"
+      bind:selectGuest="onSelectGuest"
+      showAddButton="{{false}}"
+      style="width: {{LAYOUT_CONFIG.LEFT_WIDTH_RATIO * 100}}vw;"
+    />
+    <table-layout 
+      id="tableLayout"
+      tables="{{tables}}"
+      selectedGuest="{{selectedGuest}}"
+      bind:addTable="onAddTable"
+      bind:updateTableCapacity="onUpdateTableCapacity"
+      bind:assignSeat="onAssignSeat"
+      showAddButton="{{false}}"
+      style="width: {{LAYOUT_CONFIG.RIGHT_WIDTH_RATIO * 100}}vw;"
+    />
+  </view>
+</view>

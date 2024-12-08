@@ -1,0 +1,71 @@
+<view class="table-layout" style="{{styleVariables}}">
+  <movable-area class="table-layout" id="tableLayout">
+    <movable-view 
+      class="movable-content"
+      direction="all"
+      scale="true"
+      scale-min="{{ZOOM_CONFIG.MIN_SCALE}}"
+      scale-max="{{ZOOM_CONFIG.MAX_SCALE}}"
+      scale-value="{{scale}}"
+      bindscale="onScale"
+      bindchange="onChange"
+      out-of-bounds="true"
+      damping="50"
+      friction="2">
+      <view class="content" style="width: {{contentWidth}}px; height: {{contentHeight}}px; transform: scale({{scale}});">
+        <!-- 添加按钮 -->
+        <view class="add-table-btn" bind:tap="showAddTable" wx:if="{{showAddButton}}">
+          <text>+</text>
+        </view>
+
+        <!-- 餐桌列表 -->
+        <view wx:for="{{tables}}" wx:key="id" 
+              class="table-container"
+              style="left: {{item.x}}px; top: {{item.y}}px;">
+          <view class="table">
+            <!-- 桌子容量输入框 -->
+            <input class="table-capacity" 
+                   type="number" 
+                   value="{{item.capacity}}"
+                   bind:blur="updateTableCapacity"
+                   data-table-id="{{item.id}}"
+                   disabled="{{item.seats.length > 0}}" />
+            
+            <!-- 座位 -->
+            <view wx:for="{{item.seats}}" 
+                  wx:key="index" 
+                  wx:for-item="seat"
+                  class="seat {{seat.guestId ? 'occupied' : ''}}"
+                  style="transform: rotate({{360 / item.capacity * index}}deg) translateY(calc(-1 * var(--seat-margin)));"
+                  bind:tap="onSeatTap"
+                  data-table-id="{{item.id}}"
+                  data-seat-index="{{index}}">
+              <view class="seat-content" style="transform: rotate(-{{360 / item.capacity * index}}deg)">
+                {{seat.guestName || ''}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </movable-view>
+  </movable-area>
+
+  <!-- 添加餐桌弹窗 -->
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="modal-content">
+      <view class="modal-title">添加餐桌</view>
+      <view class="number-input">
+        <text class="label">座位数量：</text>
+        <view class="number-control">
+          <view class="number-btn" bind:tap="decreaseCapacity">-</view>
+          <text class="number-value">{{newTableCapacity}}</text>
+          <view class="number-btn" bind:tap="increaseCapacity">+</view>
+        </view>
+      </view>
+      <view class="modal-buttons">
+        <view class="modal-button cancel" bind:tap="cancelAdd">取消</view>
+        <view class="modal-button confirm" bind:tap="confirmAdd">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

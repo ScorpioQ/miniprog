@@ -1,0 +1,12 @@
+<view class="toolbar">
+  <view class="button-group">
+    <button class="tool-btn" bindtap="onAddGuest">
+      <text class="icon">+</text>
+      <text class="label">添加来宾</text>
+    </button>
+    <button class="tool-btn" bindtap="onAddTable">
+      <text class="icon">+</text>
+      <text class="label">添加桌位</text>
+    </button>
+  </view>
+</view>

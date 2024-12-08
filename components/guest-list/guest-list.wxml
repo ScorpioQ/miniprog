@@ -1,0 +1,42 @@
+<view class="guest-list" id="guestList">
+  <view class="header">
+    <text class="title">来宾列表</text>
+    <view class="add-btn" bindtap="showAddGuest" wx:if="{{showAddButton}}">+</view>
+  </view>
+  
+  <scroll-view scroll-y class="guest-scroll">
+    <view wx:for="{{guests}}" wx:key="id" 
+          class="guest-item {{selectedGuest.id === item.id ? 'selected' : ''}}"
+          bindtap="selectGuest" 
+          data-guest="{{item}}">
+      <text class="guest-name">{{item.name}}</text>
+      <text class="guest-count">{{item.remainingCount}}人</text>
+    </view>
+  </scroll-view>
+
+  <!-- 添加来宾弹窗 -->
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="modal-content">
+      <view class="modal-title">添加来宾</view>
+      <view class="input-group">
+        <input class="modal-input" 
+               type="text" 
+               placeholder="姓名" 
+               value="{{newGuest.name}}"
+               bindinput="onNameInput" />
+        <view class="number-input">
+          <text class="label">人数：</text>
+          <view class="number-control">
+            <view class="number-btn" bindtap="decreaseCount">-</view>
+            <text class="number-value">{{newGuest.count}}</text>
+            <view class="number-btn" bindtap="increaseCount">+</view>
+          </view>
+        </view>
+      </view>
+      <view class="modal-buttons">
+        <view class="modal-button cancel" bindtap="cancelAdd">取消</view>
+        <view class="modal-button confirm" bindtap="confirmAdd">确定</view>
+      </view>
+    </view>
+  </view>
+</view>
